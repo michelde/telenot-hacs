@@ -1,0 +1,82 @@
+{
+  "config": {
+    "step": {
+      "reconfigure": {
+        "title": "Gatewayadresse ändern",
+        "description": "Die bestehende Verbindung wird kurz geschlossen. Der neue Zugang muss zur gleichen Anlage gehören.",
+        "data": {"host": "Hostname oder IP-Adresse", "port": "TCP-Port"}
+      },
+      "user": {
+        "title": "TELENOT-Serial-Gateway verbinden",
+        "description": "Adresse des TCP-Serial-Gateways eingeben. Andere GMS-Clients vorher pausieren: Diese Integration muss den seriellen Handshake allein bedienen. Die Einrichtung liest Identität und Status; sie schaltet die Anlage nicht scharf oder unscharf.",
+        "data": {"host": "Hostname oder IP-Adresse", "port": "TCP-Port"}
+      }
+    },
+    "error": {"cannot_connect": "Kein vollständiger GMS-Status empfangen. Gatewayadresse, Port und weitere aktive GMS-Clients prüfen."},
+    "abort": {"already_configured": "Dieses Gateway oder diese Anlage ist bereits eingerichtet.", "reconfigure_successful": "Gatewaykonfiguration aktualisiert."}
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TELENOT-Optionen",
+        "description": "Schreiben ist standardmäßig deaktiviert. Nur aktivieren, wenn ausdrückliche Scharf-/Unscharfaktionen aus Home Assistant einschließlich deiner Automationen erlaubt sein sollen. GMS besitzt keine Benutzer-PIN-Authentifizierung. Das Aktivieren allein sendet keine Schaltbefehle.",
+        "data": {"allow_control": "Scharf- und Unscharfschalten erlauben"}
+      }
+    }
+  },
+  "entity": {
+    "alarm_control_panel": {
+      "area": {"name": "Sicherungsbereich {number}"}
+    },
+    "binary_sensor": {
+      "connection": {"name": "Gatewayverbindung"},
+      "input": {"name": "Eingang {address}"},
+      "output": {"name": "Ausgang {address}"},
+      "point": {"name": "Meldepunkt {address}"},
+      "message_area": {"name": "Meldebereich {number}"},
+      "bypass": {"name": "{name} gesperrt"},
+      "area_alarm": {"name": "{name} Alarm"},
+      "area_fault": {"name": "{name} Störung"},
+      "area_ready_home": {"name": "{name} intern scharf bereit"},
+      "area_ready_away": {"name": "{name} extern scharf bereit"},
+      "area_buzzer": {"name": "{name} Summer"}
+    },
+    "button": {
+      "rediscover": {"name": "Discovery aktualisieren"}
+    },
+    "sensor": {
+      "discovery": {
+        "name": "Discovery",
+        "state": {
+          "pending": "Ausstehend", "running": "Läuft", "complete": "Vollständig",
+          "partial": "Teilweise", "failed": "Fehlgeschlagen", "disconnected": "Getrennt"
+        },
+        "state_attributes": {
+          "completed": {"name": "Abgeschlossene Abfragen"}, "total": {"name": "Abfragen insgesamt"},
+          "failed": {"name": "Fehlgeschlagene Abfragen"}, "last_error": {"name": "Letzter Fehler"}
+        }
+      },
+      "occupied_points": {
+        "name": "Belegte Positionen",
+        "state_attributes": {"security_areas": {"name": "Sicherungsbereiche"}}
+      },
+      "last_command": {
+        "name": "Letzter Befehl",
+        "state": {
+          "queued": "In Warteschlange", "acknowledged": "Quittiert", "confirmed_by_status": "Durch Status bestätigt",
+          "rejected": "Abgelehnt", "unknown": "Ausführung ungewiss", "cancelled_or_unknown": "Abgebrochen oder Ausführung ungewiss"
+        },
+        "state_attributes": {
+          "area": {"name": "Sicherungsbereich"},
+          "mode": {"name": "Angeforderter Modus", "state": {"disarmed": "Unscharf", "armed_home": "Intern scharf", "armed_away": "Extern scharf"}}
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "control_disabled": {"message": "Scharf- und Unscharfschalten ist in den Integrationsoptionen deaktiviert."},
+    "area_unavailable": {"message": "Der Sicherungsbereich ist nicht verfügbar oder seine Konfiguration wurde noch nicht bestätigt."},
+    "command_rejected": {"message": "Die Zentrale hat den Befehl abgelehnt. Anlagenstatus und Protokollmeldungen prüfen."},
+    "command_uncertain": {"message": "Die Befehlsausführung ist ungewiss. Vor einem weiteren Befehl den Anlagenstatus prüfen; der Befehl wird nicht automatisch wiederholt."}
+  }
+}

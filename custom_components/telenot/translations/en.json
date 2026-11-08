@@ -1,0 +1,82 @@
+{
+  "config": {
+    "step": {
+      "reconfigure": {
+        "title": "Change gateway address",
+        "description": "The existing connection is briefly closed. The new endpoint must belong to the same panel.",
+        "data": {"host": "Host or IP address", "port": "TCP port"}
+      },
+      "user": {
+        "title": "Connect TELENOT serial gateway",
+        "description": "Enter the TCP-serial gateway address. Pause other GMS clients first: this integration must own the serial handshake. Setup reads the panel identity and status; it does not arm or disarm the panel.",
+        "data": {"host": "Host or IP address", "port": "TCP port"}
+      }
+    },
+    "error": {"cannot_connect": "Could not receive a complete GMS status. Check gateway address, port and whether another GMS client is running."},
+    "abort": {"already_configured": "This gateway or panel is already configured.", "reconfigure_successful": "Gateway configuration updated."}
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "TELENOT options",
+        "description": "Writing is disabled by default. Enable only to allow explicit arming/disarming actions from Home Assistant, including your automations. The GMS interface has no user PIN authentication. No commands are sent just by enabling this option.",
+        "data": {"allow_control": "Enable arming and disarming"}
+      }
+    }
+  },
+  "entity": {
+    "alarm_control_panel": {
+      "area": {"name": "Area {number}"}
+    },
+    "binary_sensor": {
+      "connection": {"name": "Gateway connection"},
+      "input": {"name": "Input {address}"},
+      "output": {"name": "Output {address}"},
+      "point": {"name": "Point {address}"},
+      "message_area": {"name": "Message area {number}"},
+      "bypass": {"name": "{name} bypassed"},
+      "area_alarm": {"name": "{name} alarm"},
+      "area_fault": {"name": "{name} fault"},
+      "area_ready_home": {"name": "{name} ready to arm home"},
+      "area_ready_away": {"name": "{name} ready to arm away"},
+      "area_buzzer": {"name": "{name} buzzer"}
+    },
+    "button": {
+      "rediscover": {"name": "Refresh discovery"}
+    },
+    "sensor": {
+      "discovery": {
+        "name": "Discovery",
+        "state": {
+          "pending": "Pending", "running": "Running", "complete": "Complete",
+          "partial": "Partial", "failed": "Failed", "disconnected": "Disconnected"
+        },
+        "state_attributes": {
+          "completed": {"name": "Completed requests"}, "total": {"name": "Total requests"},
+          "failed": {"name": "Failed requests"}, "last_error": {"name": "Last error"}
+        }
+      },
+      "occupied_points": {
+        "name": "Occupied positions",
+        "state_attributes": {"security_areas": {"name": "Security areas"}}
+      },
+      "last_command": {
+        "name": "Last command",
+        "state": {
+          "queued": "Queued", "acknowledged": "Acknowledged", "confirmed_by_status": "Confirmed by status",
+          "rejected": "Rejected", "unknown": "Outcome unknown", "cancelled_or_unknown": "Cancelled or outcome unknown"
+        },
+        "state_attributes": {
+          "area": {"name": "Security area"},
+          "mode": {"name": "Requested mode", "state": {"disarmed": "Disarmed", "armed_home": "Armed home", "armed_away": "Armed away"}}
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "control_disabled": {"message": "Arming and disarming are disabled in the integration options."},
+    "area_unavailable": {"message": "The security area is unavailable or its configuration has not been confirmed."},
+    "command_rejected": {"message": "The panel rejected the requested command. Check the panel status and logs."},
+    "command_uncertain": {"message": "The command outcome is unknown. Check the panel before sending another command; it will not be repeated automatically."}
+  }
+}

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.DS_Store
+diagnostics/
+.pytest-tmp/
+.ruff_cache/
+dist/
+gms_schnittstelle_V6.pdf
+PLAN.md

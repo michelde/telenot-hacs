@@ -1,0 +1,13 @@
+{
+  "domain": "telenot",
+  "name": "TELENOT GMS",
+  "categories": ["security_safety.alarm_systems"],
+  "codeowners": ["@michelde"],
+  "config_flow": true,
+  "documentation": "https://github.com/michelde/telenot-hacs",
+  "integration_type": "hub",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/michelde/telenot-hacs/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

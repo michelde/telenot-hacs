@@ -1,0 +1,19 @@
+{
+  "source": "2026-11-07 target-panel capture; identities, addresses and names replaced; checksums recalculated independently",
+  "frames": [
+    {
+      "frame_length": 58,
+      "hex": "68 34 34 68 73 02 06 0c 01 00 03 73 fe 01 20 54 54 f5 72 20 54 65 73 74 20 20 20 20 20 20 20 20 47 72 6f 75 6e 64 20 66 6c 6f 6f 72 20 20 20 20 06 56 00 80 51 ff ff ff 47 16",
+      "name": "Tür Test Ground floor",
+      "areas": [1],
+      "message_area": 1
+    },
+    {
+      "frame_length": 42,
+      "hex": "68 24 24 68 73 02 06 0c 00 00 03 73 ff 00 10 54 54 f5 72 20 54 65 73 74 20 20 20 20 20 20 20 20 06 56 00 80 51 ff ff ff 05 16",
+      "name": "Tür Test",
+      "areas": [],
+      "message_area": 0
+    }
+  ]
+}
